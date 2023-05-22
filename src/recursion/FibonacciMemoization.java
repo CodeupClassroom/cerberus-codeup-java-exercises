@@ -31,7 +31,7 @@ public class FibonacciMemoization {
 //        System.out.println(Arrays.toString(memoTable));
 
         long start = System.currentTimeMillis();
-        System.out.println(fib(12000));
+        System.out.println(fib(12150));
 
         System.out.println("Time in ms = " + (System.currentTimeMillis() - start));
     }

@@ -13,6 +13,12 @@ public class Factorial {
     }
 
     public static void main(String[] args) {
-        System.out.println(fact(5));
+        System.out.println(fact(5)); // print 5!
+
+        int myFactVal = 1;
+        for (int i = 1; i <= 5; i++) {
+            myFactVal *= i;
+        }
+        System.out.println(myFactVal);
     }
 }
