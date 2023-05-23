@@ -3,125 +3,71 @@ package util;
 import java.util.Scanner;
 
 public class Input {
-    private Scanner scanner;
 
-    public Input() {
-        scanner = new Scanner(System.in);
+    private Scanner scanner ;
+
+    public Input(){
+        this.scanner = new Scanner(System.in);
     }
 
-    public String getString() {
-        return scanner.nextLine();
+    public String getString(){
+        return this.scanner.nextLine();
     }
 
-    public String getString(String prompt) {
-        System.out.print(prompt);
-        return getString();
-    }
-
-    public boolean yesNo() {
-        String response = getString();
-        if(response.equalsIgnoreCase("yes") || response.equalsIgnoreCase("y")) {
+    public boolean yesNo(){
+        String userInput = scanner.nextLine();
+        if (userInput.equalsIgnoreCase("yes") || userInput.equalsIgnoreCase("y")){
             return true;
+        } else {
+            return false;
         }
-        return false;
     }
 
-    public boolean yesNo(String prompt) {
-        System.out.print(prompt);
-        return yesNo();
+    public int getInt(){
+        return this.scanner.nextInt();
     }
 
-    public int getInt() {
-//        return scanner.nextInt();
-        int userInt = 0;
+    public double getDouble(){
+        return this.scanner.nextDouble();
+    };
 
-        // make sure the user doesnt screw it up
-        String s = getString();
-        try {
-            userInt = Integer.valueOf(s);
-        } catch(NumberFormatException e) {
-            // user messed up
-            System.out.print("Invalid integer. Please re-enter: ");
-            userInt = getInt();
+
+    public int getInt(int min, int max, String prompt){
+        System.out.println(prompt);
+        int userNum = Integer.valueOf(this.getString());
+        if(userNum >= min && userNum <= max){
+            return userNum;
         }
-
-        return userInt;
+        System.out.println("Integer not between bounds. Enter integer: ");
+        return getInt(min, max,prompt);
     }
 
-    public int getInt(String prompt) {
-        System.out.print(prompt);
-        return getInt();
-    }
-
-    public int getInt(int min, int max) {
-        return getInt(min, max, "");
-    }
-
-    public int getInt(int min, int max, String prompt) {
-        System.out.print(prompt);
-        int anInt = getInt();
-        if(anInt < min || anInt > max) {
-            System.out.printf("Hey! That was not between %d and %d!!%n", min, max);
-            return getInt(min, max, prompt);
+    public int getInt(int min, int max){
+        int userNum = Integer.valueOf(this.getString());
+        if(userNum >= min && userNum <= max){
+            return userNum;
         }
-        return anInt;
+        System.out.println("Integer not between bounds. Enter integer: ");
+        return getInt(min, max);
     }
 
-    public double getDouble() {
-        double userDouble = 0;
+    public double getDouble(double min, double max, String prompt){
+        System.out.println(prompt);
 
-        // make sure the user doesnt screw it up
-        String s = getString();
-        try {
-            userDouble = Double.valueOf(s);
-        } catch(NumberFormatException e) {
-            // user messed up
-            System.out.print("Invalid double. Please re-enter: ");
-            userDouble = getDouble();
+        double userNum = Double.valueOf(this.getString());
+        if(userNum >= min && userNum <= max){
+            return userNum;
         }
-
-        return userDouble;
+        System.out.println("Double not between bounds. Enter a double: ");
+        return getDouble(min, max,prompt);
     }
 
-    public double getDouble(double min, double max) {
-        System.out.printf("Enter a number between %f and %f%n", min, max);
-        double aDouble = getDouble();
-        if(aDouble < min || aDouble > max) {
-            System.out.printf("Hey! That was not between %f and %f!!%n", min, max);
-            return getDouble(min, max);
-        }
-        return aDouble;
-    }
-
-    public int getBinary() {
-        int userInt = 0;
-
-        // make sure the user doesnt screw it up
-        String s = getString();
-        try {
-            userInt = Integer.valueOf(s, 2);
-        } catch(NumberFormatException e) {
-            // user messed up
-            System.out.print("Invalid binary number. Please re-enter: ");
-            userInt = getBinary();
-        }
-
-        return userInt;
-    }
-
-    public int getHex() {
-        int userInt = 0;
-
-        // make sure the user doesnt screw it up
-        String s = getString();
-        try {
-            userInt = Integer.valueOf(s, 16);
-        } catch(NumberFormatException e) {
-            // user messed up
-            System.out.print("Invalid hex number. Please re-enter: ");
-            userInt = getHex();
-        }
-
-        return userInt;
+    public static void main(String[] args) {
+        Input inputOne = new Input();
+//        System.out.println("Get String: ");
+//        System.out.println(inputOne.getString());
+//        System.out.println("yesNo: ");
+//        System.out.println(inputOne.yesNo());
+        System.out.println(inputOne.getInt(1, 10,"give me an integer between 1-10"));
     }
 }
