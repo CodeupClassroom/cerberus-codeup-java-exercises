@@ -42,16 +42,24 @@ public class PolyLec {
         System.out.println(bob);
 
         // and overriding with the ninja definition of taunt()
+        sue.taunt();
 
         // what happens when we print out sue???
             // can we override toString()?
+        System.out.println(sue);
 
         // and add a ninja specific attack too! throwShuriken()
+        sue.throwShuriken(bob);
+        System.out.println(bob);
+
+        // fighter cannot throw shuriken
+        // bob.throwShuriken(sue);
 
         // define a ninja-specific property
         //  that affect the ninja-cool attack
         //  and add a getter/setter  numShuriken
-
+        System.out.println(sue);
+        sue.throwShuriken(bob);
 
         // what if the ninja wants to do both kinds of taunts?
         // show super.taunt()
@@ -72,5 +80,6 @@ public class PolyLec {
         // class (cannot extend)
         // property (assign only once)
         // method (cannot override)
+
     }
 }

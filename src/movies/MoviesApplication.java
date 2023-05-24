@@ -7,14 +7,16 @@ import java.util.Arrays;
 import static movies.MoviesArray.findAll;
 
 public class MoviesApplication {
+    public static final int EXIT_APP = 0;
+    public static final int INVALID_CHOICE = -1;
 
     public static Movie[] mlist = findAll();
 
     public static void main(String[] args) {
         Input in = new Input();
         System.out.println("Hello, welcome to my movie application!");
-        int choice = -1;
-        while(choice != 0) {
+        int choice = INVALID_CHOICE;
+        while(choice != EXIT_APP) {
             printMenu();
 
             choice = in.getInt(0, 6);
@@ -43,26 +45,17 @@ Enter your choice: """);
     }
 
     private static void doChoice(int choice){
-        switch (choice){
-            case 1:
-                printMovies("all");
-                break;
-            case 2:
-                printMovies("animated");
-                break;
-            case 3:
-                printMovies("drama");
-                break;
-            case 4:
-                printMovies("horror");
-                break;
-            case 5:
-                printMovies("scifi");
-                break;
-            case 6:
+        switch (choice) {
+            case 1 -> printMovies("all");
+            case 2 -> printMovies("animated");
+            case 3 -> printMovies("drama");
+            case 4 -> printMovies("horror");
+            case 5 -> printMovies("scifi");
+            case 6 -> {
                 Movie movie = getNewMovieFromUser();
                 mlist = addMovie(mlist, movie);
                 printMovies("all");
+            }
         }
     }
 
