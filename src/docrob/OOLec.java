@@ -1,8 +1,15 @@
 package docrob;
 
+import java.util.Scanner;
+
 public class OOLec {
     public static void main(String[] args) {
         // explain difference between Scanner and Math classes
+//        Scanner input = new Scanner(System.in);
+//        Scanner stringInput = new Scanner("hello world");
+//        input.nextLine();
+
+//        int x = Math.abs(-5);
 
         // what is a class?
             // custom data type
@@ -13,6 +20,19 @@ public class OOLec {
         // make a simple class
             // fighter with name and health fields
             // make them public for now
+
+        // make a fighter (tom)
+//        Fighter tom = new Fighter();
+////        tom.name = "Tom";
+////        tom.health = 100; // new fighters have a health of 100
+//        tom.setName("Tom");
+//        tom.setHealth(100);
+//
+//        Fighter sue = new Fighter();
+////        sue.name = "Sue";
+////        sue.health = 100;
+//        sue.setName("Sue");
+//        sue.setHealth(100);
 
         // why make object classes?
             // to represent the concepts that are what the program is about (design)
@@ -35,6 +55,8 @@ public class OOLec {
 
         // 1. constructors
             // overloading constructors
+        Fighter tom = new Fighter("Tom");
+        Fighter sue = new Fighter("Sue");
 
         // 2. getters and setters
 
@@ -43,11 +65,19 @@ public class OOLec {
             // private default for methods
 
         // the toString method
+        System.out.println(tom);
+        System.out.println(sue);
 
         // this reference
             // make a printThis method that shows what THIS really refers to
 
         // finish with a goblin class that can exchange hits with the Fighter
+        tom.attackPower50(sue);
+        // print out "Tom hits Sue for xxx damage!"
+        sue.attackPower50(tom);
+
+        System.out.println(tom);
+        System.out.println(sue);
 
     }
 }
