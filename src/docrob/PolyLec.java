@@ -8,9 +8,11 @@ public class PolyLec {
 
         // make the toString() method nicer
         Fighter bob = new Fighter("Bob");
-        Fighter sue = new Fighter("Sue");
+//        Fighter sue = new Fighter("Sue");
+        System.out.println(bob);
 
         // make a new method for Fighters called taunt()
+        bob.taunt();
 
         // what if Sue is ACTUALLY a Ninja???
         // a ninja IS A fighter BUT is a little different.
@@ -22,6 +24,8 @@ public class PolyLec {
 
         // explain inheritance and why it is awesome
         // make a subclass/subtype of Fighter (ninja)
+        Ninja sue = new Ninja("Sue");
+        System.out.println(sue);
 
         // make a single arg constructor
         // notice that it is calling the Fighter single arg constructor, which is fine
@@ -34,6 +38,8 @@ public class PolyLec {
         // explain superclass/supertype
 
         // show reuse/inheriting with attack()
+        sue.attackPower50(bob);
+        System.out.println(bob);
 
         // and overriding with the ninja definition of taunt()
 

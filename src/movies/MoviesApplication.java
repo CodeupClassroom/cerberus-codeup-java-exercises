@@ -9,85 +9,79 @@ import static movies.MoviesArray.findAll;
 public class MoviesApplication {
 
     public static Movie[] mlist = findAll();
+
     public static void main(String[] args) {
         Input in = new Input();
         System.out.println("Hello, welcome to my movie application!");
         int choice = -1;
         while(choice != 0) {
-            System.out.println("What would you like to do?");
-            System.out.println("");
-            System.out.println("0 - exit");
-            System.out.println("1 - view all movies");
-            System.out.println("2 - view movies in the animated category");
-            System.out.println("3 - view movies in the drama category");
-            System.out.println("4 - view movies in the horror category");
-            System.out.println("5 - view movies in the sci-fi category");
-            System.out.println("6 - add new movie");
-
-            System.out.println("Enter your choice: ");
+            printMenu();
 
             choice = in.getInt(0, 6);
 
             doChoice(choice);
 
         }
-
-
 //        Your application should continue to run until the user chooses to exit.
 
+    }
 
+    private static void printMenu() {
+        System.out.println("What would you like to do?");
+        System.out.println("");
+
+        System.out.println("""
+0 - exit
+1 - view all movies
+2 - view movies in the animated category
+3 - view movies in the drama category
+4 - view movies in the horror category
+5 - view movies in the sci-fi category
+6 - add new movie
+
+Enter your choice: """);
     }
 
     private static void doChoice(int choice){
         switch (choice){
             case 1:
-                for(Movie pMovie : mlist){
-                    System.out.println(pMovie.getName() + " -- " + pMovie.getCategory());
-                }
+                printMovies("all");
                 break;
             case 2:
-                for(Movie pMovie : mlist){
-                    if(pMovie.getCategory().equals("animated")){
-                        System.out.println(pMovie.getName() + " -- " + pMovie.getCategory());
-                    }
-                }
+                printMovies("animated");
                 break;
-
             case 3:
-                for(Movie pMovie : mlist){
-                    if(pMovie.getCategory().equals("drama")){
-                        System.out.println(pMovie.getName() + " -- " + pMovie.getCategory());
-                    }
-                }
+                printMovies("drama");
                 break;
             case 4:
-                for(Movie pMovie : mlist){
-                    if(pMovie.getCategory().equals("horror")){
-                        System.out.println(pMovie.getName() + " -- " + pMovie.getCategory());
-                    }
-                }
+                printMovies("horror");
                 break;
             case 5:
-                for(Movie pMovie : mlist){
-                    if(pMovie.getCategory().equals("scifi")){
-                        System.out.println(pMovie.getName() + " -- " + pMovie.getCategory());
-                    }
-                }
+                printMovies("scifi");
                 break;
             case 6:
-                Input in = new Input();
-                System.out.println("Enter new movies name: ");
-                String name = in.getString();
-                System.out.println("Enter new movies category: ");
-                String category = in.getString();
-                Movie nMovie = new Movie(name,category);
-                mlist = addMovie(mlist,nMovie);
-
-                for(Movie pMovie : mlist){
-                    System.out.println(pMovie.getName() + " -- " + pMovie.getCategory());
-                }
-
+                Movie movie = getNewMovieFromUser();
+                mlist = addMovie(mlist, movie);
+                printMovies("all");
         }
+    }
+
+    public static void printMovies(String category) {
+        for(Movie pMovie : mlist){
+            if(pMovie.getCategory().equals(category) || category.equalsIgnoreCase("all")){
+                System.out.println(pMovie);
+            }
+        }
+    }
+
+    private static Movie getNewMovieFromUser() {
+        Input in = new Input();
+        System.out.println("Enter new movies name: ");
+        String name = in.getString();
+        System.out.println("Enter new movies category: ");
+        String category = in.getString();
+        Movie nMovie = new Movie(name,category);
+        return nMovie;
     }
 
     public static Movie[] addMovie(Movie[] movieArr, Movie movie){

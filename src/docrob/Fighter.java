@@ -8,7 +8,11 @@ public class Fighter {
     private String name;
 
     // every fighter has their own health value
-    private int health;
+    protected int health;
+
+    public void taunt() {
+        System.out.println("You call that a sword???");
+    }
 
     public void attackPower50(Fighter fighterGettingHit) {
         int damage = (int) (Math.random() * 50 + 1);
@@ -22,10 +26,7 @@ public class Fighter {
 
     @Override
     public String toString() {
-        return "Fighter{" +
-                "name='" + name + '\'' +
-                ", health=" + health +
-                '}';
+        return name + " the Fighter has " + health + " health.";
     }
 
     // constructors
@@ -56,7 +57,5 @@ public class Fighter {
         this.health = health;
     }
 
-    public static void main(String[] args) {
-        System.out.println("run some code to test out a fighter here if necessary");
-    }
+
 }
