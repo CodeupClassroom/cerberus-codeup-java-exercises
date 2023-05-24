@@ -4,17 +4,28 @@ package docrob;
 public class PolyLec {
     public static void main(String[] args) {
 
+        // review the Fighter class
+
+        // make the toString() method nicer
+        Fighter bob = new Fighter("Bob");
+        Fighter sue = new Fighter("Sue");
+
         // make a new method for Fighters called taunt()
 
         // what if Sue is ACTUALLY a Ninja???
-        // a ninja IS A fighter but is a little different.
-        //      e.g., has ninja taunt, less health, and a ninja-specific attack
+        // a ninja IS A fighter BUT is a little different.
+        //      has ninja taunt
+        //      less health
+        //      and a ninja-specific attack
+
+        // show an alternate approach using a field. ick!
+
         // explain inheritance and why it is awesome
         // make a subclass/subtype of Fighter (ninja)
 
         // make a single arg constructor
-        // notice that it is calling the Fighter single arg constructor, which is ok but...
-        // we want to set health lower
+        // notice that it is calling the Fighter single arg constructor, which is fine
+        // but... we want to set health lower
 
         // show setting health lower in the ninja constructor
         // using a setter in the subclass is kind of silly
@@ -41,8 +52,7 @@ public class PolyLec {
 
         // polymorphism
         // go beyond the lesson's definition
-        // point to solid principles reference
-        // https://en.wikipedia.org/wiki/SOLID
+        // https://en.wikipedia.org/wiki/Polymorphism_(computer_science)
 
 
         // now let's use abstract references to store fighters and ninjas together!
