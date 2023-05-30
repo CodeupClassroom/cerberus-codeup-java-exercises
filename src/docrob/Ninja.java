@@ -1,9 +1,15 @@
 package docrob;
 
-public class Ninja extends Fighter {
+public class Ninja extends Fighter implements Dodger {
     private int numShuriken = 3;
 
-    public void throwShuriken(Fighter target) {
+    @Override
+    public boolean dodge() {
+        // ninja can dodge 25% of the time
+        return Math.random() < .25;
+    }
+
+    public void throwShuriken(ArenaCombatant target) {
         // can only throw 3 shuriken at a time. return if < 3
         if(numShuriken < 3) {
             System.out.println(this.getName() + " has no more shuriken! :(");
@@ -11,10 +17,8 @@ public class Ninja extends Fighter {
         }
 
         for (int i = 0; i < 3; i++) {
-            System.out.println(this.getName() + " throws a shuriken at " + target.getName() + "!");
-            int currentHealth = target.getHealth();
-            currentHealth -= 20;
-            target.setHealth(currentHealth);
+            System.out.println(this.getName() + " throws a shuriken at " + target.toString() + "!");
+            target.takeDamage(20);
 
             numShuriken--;
         }
@@ -27,8 +31,8 @@ public class Ninja extends Fighter {
     }
 
     @Override
-    public String toString() {
-        return getName() + " the NINJA has " + health + " health with " + numShuriken + " shuriken.";
+    public void printStatus() {
+        System.out.println(getName() + " the NINJA has " + health + " health with " + numShuriken + " shuriken.");
     }
 
     public Ninja(String name) {
