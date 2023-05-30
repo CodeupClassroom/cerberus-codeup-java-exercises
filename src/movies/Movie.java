@@ -10,6 +10,11 @@ public class Movie {
         this.category = category;
     }
 
+    @Override
+    public String toString() {
+        return name + " - " + category;
+    }
+
     public void setCategory(String category){
         this.category =category;
     }

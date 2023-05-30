@@ -1,31 +1,44 @@
 package docrob;
 
-public class Fighter {
+public class Fighter extends ArenaCombatant {
     // data definitions for a fighter in my game
     // fields, instance variables, member variables
 
     // every fighter has their own name (not static)
     private String name;
 
-    // every fighter has their own health value
-    private int health;
+    public void taunt() {
+        System.out.println("You call that a sword???");
+    }
 
-    public void attackPower50(Fighter fighterGettingHit) {
+    @Override
+    public void attack(ArenaCombatant attackee) {
+        // if the attackee can dodge, then check that first
+        if(attackee instanceof Dodger) {
+            Dodger dodger = (Dodger) attackee;
+            if(dodger.dodge()) {
+                System.out.println(attackee + " dodges " + this.toString() + "'s attack");
+                return;
+            }
+        }
+        attackPower50(attackee);
+    }
+
+    public void attackPower50(ArenaCombatant attackee) {
         int damage = (int) (Math.random() * 50 + 1);
 
-        System.out.println(this.getName() + " hits " + fighterGettingHit.getName() + " for " + damage + "!!!");
+        System.out.println(this.getName() + " hits " + attackee + " for " + damage + "!!!");
 
-        int currentHealth = fighterGettingHit.getHealth();
-        currentHealth -= damage;
-        fighterGettingHit.setHealth(currentHealth);
+        attackee.takeDamage(damage);
     }
 
     @Override
     public String toString() {
-        return "Fighter{" +
-                "name='" + name + '\'' +
-                ", health=" + health +
-                '}';
+        return name;
+    }
+
+    public void printStatus() {
+        System.out.println(name + " the Fighter has " + health + " health.");
     }
 
     // constructors
@@ -48,15 +61,4 @@ public class Fighter {
         this.name = name;
     }
 
-    public int getHealth() {
-        return health;
-    }
-
-    public void setHealth(int health) {
-        this.health = health;
-    }
-
-    public static void main(String[] args) {
-        System.out.println("run some code to test out a fighter here if necessary");
-    }
 }
