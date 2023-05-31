@@ -15,7 +15,6 @@ public class ShapesTest {
         System.out.println(myShape.getPerimeter());
         System.out.println(myShape.getArea());
 
-        myShape.getL
 
     }
 }
