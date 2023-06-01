@@ -223,6 +223,9 @@ public class CollectionsLec {
         }
 
         // look thru other methods
-
+//        HashMap<String, Student> students = new HashMap<>();
+//        students.put("bobs-github-username", new Student("Bob"));
+//        Student aStudent = students.get("bobs-github-username");
+//        aStudent.addGrade(99);
     }
 }

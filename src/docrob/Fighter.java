@@ -7,6 +7,16 @@ public class Fighter extends ArenaCombatant {
     // every fighter has their own name (not static)
     private String name;
 
+    // builder method that creates a fighter from a csv string
+    public static Fighter createFromCSVString(String csvString) {
+        // name,health
+        // e.g., Bob,55
+        String [] parts = csvString.split(",");
+        Fighter fighter = new Fighter(parts[0]);
+        fighter.setHealth(Integer.parseInt(parts[1]));
+        return fighter;
+    }
+
     public void taunt() {
         System.out.println("You call that a sword???");
     }
@@ -35,6 +45,10 @@ public class Fighter extends ArenaCombatant {
     @Override
     public String toString() {
         return name;
+    }
+
+    public String toCSVString() {
+        return name + "," + health;
     }
 
     public void printStatus() {

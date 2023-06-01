@@ -16,33 +16,35 @@ public class FileLec {
         // use Paths.get to get a path ref to dir and a file
         // relative
         // then absolute
+        Path myDir = Paths.get("mydir");
+//        try {
+//            Files.createDirectory(myDir);
+//        } catch (IOException e) {
+////            System.out.println("ERROR: " + e.getMessage());
+//            e.printStackTrace();
+//        }
 
-        Path aDir = Paths.get("adir");
-        Path aFile = Paths.get("adir", "afile.txt");
-
-        System.out.println(Files.exists(aDir));
-        if(!Files.exists(aDir)) {
+        if(Files.notExists(myDir)) {
             try {
-                Files.createDirectory(aDir);
-                System.out.println("dir created");
+                Files.createDirectory(myDir);
+
+                myDir = Paths.get("mydir/otherdir");
+                Files.createDirectory(myDir);
             } catch (IOException e) {
-                System.out.println("createDirectory exception: " + e.getMessage());
+                e.printStackTrace();
             }
-        } else {
-            System.out.println("the directory exists already");
         }
+
+//        Path myFile = Paths.get("mydir", "myFile.txt");
+//        try {
+//            Files.createFile(myFile);
+//        } catch (IOException e) {
+////            e.printStackTrace();
+//        }
 
         // an alternative to using an if/else to first check if file exists
         // try to create it and ignore an already exists exception
-        try {
-            Files.createFile(aFile);
-            System.out.println("the file has been created");
-        } catch(FileAlreadyExistsException e) {
-            System.out.println("the file exists!");
-        } catch (IOException e) {
-            System.out.println("createFile exception: " + e.getMessage());
-            e.printStackTrace();
-        }
+
 
         // do we have to specify all the dirs as separate args???
 
@@ -57,22 +59,23 @@ public class FileLec {
         // default for StandardOpenOption is create/overwrite
         // look at other options
 //        List<String> fruits = Arrays.asList("apple", "pear", "banana");
+//        try {
+//            Files.write(myFile, fruits);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
 
-        Fighter bob = new Fighter("bob");
-//        System.out.println(bob.toFileString());
-        Fighter sue = new Fighter("sue");
+        Fighter bob = new Fighter("Bob");
+        bob.setHealth(55);
 
-        List<String> fighterStrings = Arrays.asList(bob.toFileString(), sue.toFileString());
+        Fighter sue = new Fighter("Sue");
+        List<Fighter> fighters = Arrays.asList(bob, sue);
+//
+        saveFighters(fighters);
+
 
         // make a method called saveCombatants()
         // and make a .toFileString() method that it calls for extra nice
-
-        try {
-            // , StandardOpenOption.APPEND
-            Files.write(aFile, fighterStrings);
-        } catch (IOException e) {
-            System.out.println("file write exception: " + e.getMessage());
-        }
 
         // what are we trying to write to a file?
         // how should we write an object to a text file???
@@ -85,20 +88,72 @@ public class FileLec {
         // and use a static method called .fromFileString(str)
         // explain why that is nice
 
-        try {
-            List<String> fileStrings = Files.readAllLines(aFile);
-            Fighter cloneOfBob = Fighter.fromFileString(fileStrings.get(0));
-            System.out.println("cloneOfBob = " + cloneOfBob);
+        fighters = loadFighters();
 
-            for (String fileString : fileStrings) {
-                Fighter aFighter = Fighter.fromFileString(fileString);
-            }
-//            System.out.println(fileStrings.size());
-//            System.out.println(fileStrings);
-        } catch (IOException e) {
-            System.out.println("file read exception: " + e.getMessage());
+        // print out the fighters
+        for (Fighter fighter : fighters) {
+            fighter.printStatus();
         }
 
+    }
 
+    private static void saveFighters(List<Fighter> fighters) {
+        try {
+            Path dataFile = Paths.get("mydir", "myFile.txt");
+
+            List<String> fileStrings = getFileStringsFromFighters(fighters);
+
+            Files.write(dataFile, fileStrings);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static List<Fighter> loadFighters() {
+        List<Fighter> fighters = new ArrayList<>();
+        try {
+            Path dataFile = Paths.get("mydir", "myFile.txt");
+
+            fighters = getFightersFromFile(dataFile);
+
+        } catch (IOException e) {
+            System.out.println("Hey man your data file does not exist!");
+            System.exit(0);
+        }
+
+        return fighters;
+    }
+
+    private static List<Fighter> getFightersFromFile(Path dataFile) throws IOException {
+        List<String> fighterStrings = Files.readAllLines(dataFile);
+        List<Fighter> fighters = new ArrayList<>();
+
+        // iterate over the strings
+        for (String fighterString : fighterStrings) {
+            // make a new fighter object from each string
+            Fighter fighter = Fighter.createFromCSVString(fighterString);
+
+            // add the fighter objects to the fighters list
+            fighters.add(fighter);
+        }
+
+        return fighters;
+    }
+
+    private static List<String> getFileStringsFromFighters(List<Fighter> fighters) {
+        // 0. make a new empty list of strings
+        List<String> fighterStrings = new ArrayList<>();
+
+        // 1. for each fighter
+        for (Fighter fighter : fighters) {
+            // 2. get the string version of the fighter
+            String fighterString = fighter.toCSVString();
+
+            // 3. add that string to a list of strings
+            fighterStrings.add(fighterString);
+        }
+
+        // 4. return the list of strings
+        return fighterStrings;
     }
 }
