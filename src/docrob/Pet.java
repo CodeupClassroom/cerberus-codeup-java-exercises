@@ -1,9 +1,14 @@
 package docrob;
 
-public class Pet {
+import java.io.Serializable;
+
+public class Pet implements Serializable {
     private int age;
     private boolean isRescue;
     private String name;
+
+    public Pet() {
+    }
 
     public Pet(int age, boolean isRescue, String name) {
         // If the passed name argument is null, the constructor should throw an IllegalArgumentException.
