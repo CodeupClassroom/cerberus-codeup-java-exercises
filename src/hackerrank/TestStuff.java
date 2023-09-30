@@ -134,14 +134,90 @@ public class TestStuff {
         return 0;
     }
 
-    public static void main(String[] args) {
-        int [] nums = {1, 2, 3, 4, 3, 2, 1};
-        List<Integer> numList = new ArrayList<>();
-        for (int num : nums) {
-            numList.add(num);
+    public static int diagonalDifference(List<List<Integer>> arr) {
+        // [ [ 1, 2, 3 ], [ 4, 5, 6 ] ]
+        int n = arr.size();
+
+        // add up the left diag elements
+        int leftDiag = 0;
+        for (int i = 0; i < n; i++) {
+            leftDiag += arr.get(i).get(i);
         }
-        int answer = lonelyinteger(numList);
-        System.out.println(answer);
+
+        // add up the right diag elements
+        int rightDiag = 0;
+        // for each row
+        for (int i = 0; i < n; i++) {
+            int j = n - i - 1;
+            // 2nd index is n - 1 - i
+            rightDiag += arr.get(i).get(j);
+        }
+//        int leftDiag = arr.get(0).get(0) + arr.get(1).get(1) + arr.get(2).get(2);
+        // n = 3
+        // i = 0, j = n - i - 1 = 2
+        // when i = 0, j (the 2nd index) is n - 1 - i, or 3 - 1 - 0 = 2
+        // i = 1, j = 3 - 1 - 1 = 1
+        // i = 2, j = 3 - 1 - 2 = 0
+//        int rightDiag = arr.get(0).get(2) + arr.get(1).get(1) + arr.get(2).get(0);
+        int absDiff = Math.abs(leftDiag - rightDiag);
+        return absDiff;
+    }
+
+    public static List<Integer> countingSort(List<Integer> arr) {
+        Integer [] sorted = new Integer[100];
+
+        // initialize sorted elements to 0
+        for (int i = 0; i < sorted.length; i++) {
+            sorted[i] = 0;
+        }
+
+        // foreach element in arr
+        for (Integer element : arr) {
+            int index = element;
+            //      increment sorted[element]
+            sorted[index]++;
+        }
+
+        return Arrays.asList(sorted);
+    }
+
+    public static void main(String[] args) {
+        Integer [] nums = {1, 1, 3, 2, 1};
+        List<Integer> numList = Arrays.asList(nums);
+
+        List<Integer> sortedList = countingSort(numList);
+        System.out.println(sortedList);
+
+//        List<List<Integer>> outsideList = new ArrayList<>();
+//        List<Integer> insideList = new ArrayList<>();
+//
+//        insideList.add(11);
+//        insideList.add(2);
+//        insideList.add(4);
+//        outsideList.add(insideList);
+//
+//        insideList = new ArrayList<>();
+//        insideList.add(4);
+//        insideList.add(5);
+//        insideList.add(6);
+//        outsideList.add(insideList);
+//
+//        insideList = new ArrayList<>();
+//        insideList.add(10);
+//        insideList.add(8);
+//        insideList.add(-12);
+//        outsideList.add(insideList);
+//
+//        System.out.println(outsideList);
+//        System.out.println(diagonalDifference(outsideList));
+
+//        int [] nums = {1, 2, 3, 4, 3, 2, 1};
+//        List<Integer> numList = new ArrayList<>();
+//        for (int num : nums) {
+//            numList.add(num);
+//        }
+//        int answer = lonelyinteger(numList);
+//        System.out.println(answer);
 
 //        String solution = timeConversion("07:05:45AM");
 //        System.out.println(solution);
