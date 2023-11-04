@@ -39,6 +39,7 @@ public class Chaos {
     public static void minimumBribes2(List<Integer> q) {
         int minBribes = 0;
         // qS is our simulation from the starting positions as we go thru q
+        // init qS with the starting values: 1, 2, 3, 4...
         int [] qS = new int[q.size()];
         for (int i = 0; i < qS.length; i++) {
             qS[i] = i + 1;
@@ -57,9 +58,9 @@ public class Chaos {
         for (int i = 0; i < (q.size() - 1); i++) {
             int val = q.get(i);
             int startingIndex = val - 1;
+
             // if the index position of the val is more than 2 from its starting index
             // then too chaotic
-
             int movesFromStart = startingIndex - i;
             if (movesFromStart > 2) {
                 System.out.println("Too chaotic");
@@ -134,6 +135,8 @@ public class Chaos {
 
     public static void main(String[] args) {
         List<Integer> q = new ArrayList<>();
+        // 1 2 3 4 5 6 7 8
+
         // 1 2 5 3 7 8 6 4
 
         // 1 2 3 4 5 6 7 8
