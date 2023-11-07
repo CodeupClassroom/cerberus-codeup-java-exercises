@@ -5,6 +5,24 @@ public class MergeSortedLists {
     static SinglyLinkedListNode mergeLists(SinglyLinkedListNode head1, SinglyLinkedListNode head2) {
         SinglyLinkedList c = new SinglyLinkedList();
 
+        while(head1 != null || head2 != null) {
+            if(head1 != null && head2 != null) {
+                if(head1.data < head2.data) {
+                    c.insertNode(head1.data);
+                    head1 = head1.next;
+                } else {
+                    c.insertNode(head2.data);
+                    head2 = head2.next;
+                }
+            } else if(head1 != null) {
+                c.insertNode(head1.data);
+                head1 = head1.next;
+            } else {
+                c.insertNode(head2.data);
+                head2 = head2.next;
+            }
+        }
+
         return c.head;
     }
 
@@ -15,7 +33,14 @@ public class MergeSortedLists {
         a.insertNode(3);
         a.insertNode(7);
 
-        SinglyLinkedListNode aPtr = a.head;
+        SinglyLinkedList b = new SinglyLinkedList();
+        b.insertNode(1);
+        b.insertNode(2);
+
+        SinglyLinkedList c = new SinglyLinkedList();
+        c.head = mergeLists(a.head, b.head);
+
+        SinglyLinkedListNode aPtr = c.head;
         while(aPtr != null) {
             System.out.println(aPtr.data);
             aPtr = aPtr.next;
