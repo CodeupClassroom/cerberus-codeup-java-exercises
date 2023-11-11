@@ -2,26 +2,42 @@ package hackerrank;
 
 public class MergeSortedLists {
 
-    static SinglyLinkedListNode mergeLists(SinglyLinkedListNode head1, SinglyLinkedListNode head2) {
+    static SinglyLinkedListNode mergeLists(SinglyLinkedListNode a, SinglyLinkedListNode b) {
         SinglyLinkedList c = new SinglyLinkedList();
 
-        while(head1 != null || head2 != null) {
-            if(head1 != null && head2 != null) {
-                if(head1.data < head2.data) {
-                    c.insertNode(head1.data);
-                    head1 = head1.next;
+        SinglyLinkedListNode a2 = a;
+        SinglyLinkedListNode b2 = b;
+
+        // while a2 and b2 are both still pointing to valid data (i.e., not null)
+        // pick the smaller of the 2 and add it to c
+        // and move a2 or b2 (whichever was smaller) forward
+
+        // loop will stop when BOTH a2 and b2 are null
+        while(a2 != null || b2 != null) {
+            if(a2 != null && b2 != null) {
+                // need to take the smaller of a2 and b2
+                if(a2.data <= b2.data) {
+                    c.insertNode(a2.data);
+                    a2 = a2.next;
                 } else {
-                    c.insertNode(head2.data);
-                    head2 = head2.next;
+                    c.insertNode(b2.data);
+                    b2 = b2.next;
                 }
-            } else if(head1 != null) {
-                c.insertNode(head1.data);
-                head1 = head1.next;
             } else {
-                c.insertNode(head2.data);
-                head2 = head2.next;
+                // either a2 or b2 are done, so just add the other's next data
+                // and move it forward
+                if(a2 == null) {
+                    // add b2's data
+                    c.insertNode(b2.data);
+                    b2 = b2.next;
+                } else {
+                    // b2 is null so add a2's data
+                    c.insertNode(a2.data);
+                    a2 = a2.next;
+                }
             }
         }
+
 
         return c.head;
     }
@@ -41,6 +57,7 @@ public class MergeSortedLists {
         c.head = mergeLists(a.head, b.head);
 
         SinglyLinkedListNode aPtr = c.head;
+//        SinglyLinkedListNode aPtr = b.head;
         while(aPtr != null) {
             System.out.println(aPtr.data);
             aPtr = aPtr.next;
